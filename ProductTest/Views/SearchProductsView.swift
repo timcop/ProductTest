@@ -1,17 +1,20 @@
 //
-//  ContentView.swift
+//  SearchProductsView.swift
 //  ProductTest
 //
-//  Created by Tim Copland on 22/09/21.
+//  Created by Tim Copland on 23/09/21.
 //
 
 import SwiftUI
 
-struct ContentView: View {
-
+struct SearchProductsView: View {
+    
     var productsModel = ProductsModel()
     @State private var products = [Product]()
     @State private var searchText: String = ""
+    @Binding var recProds: [Product]
+    @Environment(\.presentationMode) var presentation
+    
     var body: some View {
         NavigationView {
             List(products) {prod in
@@ -39,7 +42,7 @@ struct ContentView: View {
                             image.resizable()
                                 .interpolation(.none)
                                 .scaledToFit()
-                                .frame(width: 100, height: 100)
+                                .frame(width: 80, height: 80)
                         case .failure:
                             ProgressView()
                         @unknown default:
@@ -50,7 +53,9 @@ struct ContentView: View {
                 .onTapGesture {
                     // NAVIGATE TO NEW VIEW FROM HERE
                     print(prod.name)
-                    // SEND THE PRODUCT DETAIL 
+                    self.recProds.append(prod)
+                    self.presentation.wrappedValue.dismiss()
+                    // SEND THE PRODUCT DETAIL
                 }
                 
             }
@@ -66,6 +71,7 @@ struct ContentView: View {
                 }
             }
         }
+        Spacer()
     }
 }
 
@@ -87,9 +93,12 @@ struct AsyncImageHack<Content> : View where Content : View {
         }
     }
 }
-                
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+
+//struct SearchProductsView_Previews: PreviewProvider {
+//
+//    @ObservedObject var currentRecipe: Recipe = Recipe()
+//
+//    static var previews: some View {
+//        SearchProductsView(recProds: $currentRecipe.products)
+//    }
+//}
