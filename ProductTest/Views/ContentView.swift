@@ -15,13 +15,15 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
+                Text("Home Screen").font(.largeTitle)
                 HStack {
                     NavigationLink(destination: AddRecipeView()) {
-                        Text("Add a recipe!")
+                        Text("Add a recipe!").padding()            Spacer()
+
                     }
                     Spacer()
                     NavigationLink(destination: RecipesView()) {
-                        Text("Recipes")
+                        Text("View Recipes").padding()
                     }
                 }
                 Spacer()

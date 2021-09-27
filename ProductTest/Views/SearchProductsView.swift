@@ -9,10 +9,10 @@ import SwiftUI
 
 struct SearchProductsView: View {
     
+    @Binding var ingProd: Product?
     var productsModel = ProductsModel()
     @State private var products = [Product]()
     @State private var searchText: String = ""
-    @Binding var recProds: [Product]
     @Environment(\.presentationMode) var presentation
     
     var body: some View {
@@ -53,7 +53,7 @@ struct SearchProductsView: View {
                 .onTapGesture {
                     // NAVIGATE TO NEW VIEW FROM HERE
                     print(prod.name)
-                    self.recProds.append(prod)
+                    self.ingProd = prod
                     self.presentation.wrappedValue.dismiss()
                     // SEND THE PRODUCT DETAIL
                 }
